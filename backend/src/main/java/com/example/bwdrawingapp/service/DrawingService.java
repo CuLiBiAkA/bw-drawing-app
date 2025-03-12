@@ -2,12 +2,12 @@ package com.example.bwdrawingapp.service;
 
 import com.example.bwdrawingapp.dto.DrawingDTO;
 import com.example.bwdrawingapp.entity.Drawing;
-import com.example.bwdrawingapp.entity.User;
 import com.example.bwdrawingapp.repository.DrawingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Сервис для работы с рисунками.
@@ -33,7 +33,6 @@ public class DrawingService {
         Drawing drawing = new Drawing();
         drawing.setName(drawingDto.getName());
         drawing.setData(drawingDto.getData());
-        drawing.setUser(new User(drawingDto.getUserId())); // Вставляем пользователя, если он уже существует
         drawing.setCreatedAt(System.currentTimeMillis());
         drawing.setUpdatedAt(System.currentTimeMillis());
         return drawingRepository.save(drawing);
@@ -45,18 +44,18 @@ public class DrawingService {
      * @param drawingId ID рисунка
      * @return объект Drawing, если найден, или null
      */
-    public Drawing getDrawingById(Long drawingId) {
+    public Drawing getDrawingById(UUID drawingId) {
         return drawingRepository.findById(drawingId).orElse(null);
     }
 
     /**
      * Обновление данных рисунка.
      *
-     * @param drawingId ID рисунка
+     * @param drawingId  ID рисунка
      * @param drawingDto данные для обновления
      * @return обновленный рисунок
      */
-    public Drawing updateDrawing(Long drawingId, DrawingDTO drawingDto) {
+    public Drawing updateDrawing(UUID drawingId, DrawingDTO drawingDto) {
         Drawing drawing = getDrawingById(drawingId);
         if (drawing != null) {
             drawing.setName(drawingDto.getName());
@@ -72,7 +71,7 @@ public class DrawingService {
      *
      * @param drawingId ID рисунка
      */
-    public void deleteDrawing(Long drawingId) {
+    public void deleteDrawing(UUID drawingId) {
         drawingRepository.deleteById(drawingId);
     }
 

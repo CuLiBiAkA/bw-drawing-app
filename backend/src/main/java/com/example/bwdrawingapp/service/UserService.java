@@ -5,7 +5,6 @@ import com.example.bwdrawingapp.dto.UserDTO;
 import com.example.bwdrawingapp.entity.User;
 import com.example.bwdrawingapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -18,12 +17,10 @@ import java.util.Set;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -35,7 +32,7 @@ public class UserService {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword())); // Хешируем пароль
+        user.setPassword("1"); // Хешируем пароль
         user.setRoles(Set.of("USER")); // Присваиваем роль USER по умолчанию
         userRepository.save(user);
     }

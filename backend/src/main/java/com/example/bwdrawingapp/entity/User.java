@@ -1,12 +1,12 @@
 package com.example.bwdrawingapp.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Модель пользователя, которая хранит информацию о зарегистрированных пользователях.
@@ -21,8 +21,8 @@ public class User {
      * ID пользователя (генерируется автоматически).
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     /**
      * Имя пользователя (уникальное).
@@ -52,11 +52,4 @@ public class User {
      */
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
-
-    public User(Long id) {
-        this.id = id;
-    }
-
-    public User() {
-    }
 }

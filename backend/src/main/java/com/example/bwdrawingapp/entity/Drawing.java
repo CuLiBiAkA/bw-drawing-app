@@ -1,10 +1,12 @@
 package com.example.bwdrawingapp.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.util.UUID;
+
 
 /**
  * Модель рисунка, которая хранит данные о каждом рисунке.
@@ -19,8 +21,8 @@ public class Drawing {
      * ID рисунка (генерируется автоматически).
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     /**
      * Название рисунка.
